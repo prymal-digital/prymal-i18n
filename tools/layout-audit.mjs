@@ -20,6 +20,9 @@ const measure = () => {
     return { top: t.top + scrollY, bottom: t.bottom + scrollY, left: t.left, right: t.right, blockBottom: b.getBoundingClientRect().bottom + scrollY, id: (b.className.match(/fe-block-[\w-]+/) || [b.id])[0], text: b.innerText.trim().replace(/\s+/g, ' ').slice(0, 60) };
   };
   const bs = blocks.map(box), out = {};
+  [...document.querySelectorAll('.sqs-block-button-element, .sqs-button-element--primary, .sqs-button-element--secondary, .sqs-button-element--tertiary, .header-actions-action a, .product-add-to-cart button')].filter(e => e.offsetHeight).forEach((e, i) => {
+    out['btn:' + i] = { px: Math.round(e.getBoundingClientRect().height), text: e.innerText.trim().replace(/\s+/g, ' ').slice(0, 50) };
+  });
   blocks.forEach(b => b.querySelectorAll('h1,h2,h3').forEach((h, i) => {
     const s = getComputedStyle(h), fs = parseFloat(s.fontSize); if (fs < 30) return;
     const lh = parseFloat(s.lineHeight) || fs * 1.2, r = document.createRange(); r.selectNodeContents(h);
