@@ -45,7 +45,7 @@ const findings = [];
 async function pageRun(w, p) {
   const ctx = await browser.newContext({ locale: 'en-GB', viewport: { width: w, height: 900 }, isMobile: w < 768, hasTouch: w < 768 });
   await ctx.route(/google-analytics|googletagmanager|facebook|doubleclick|hotjar/, r => r.abort());
-  if (LOCAL) await ctx.route(/prymal-i18n\/preview\.js/, r => r.fulfill({ body: LOCAL, contentType: 'application/javascript', headers: { 'access-control-allow-origin': '*' } }));
+  if (LOCAL) await ctx.route(/prymal-i18n\/(preview|i18n)\.js/, r => r.fulfill({ body: LOCAL, contentType: 'application/javascript', headers: { 'access-control-allow-origin': '*' } }));
   if (LOCAL) await ctx.route(/prymal-i18n-\w+\.json$/, r => r.fulfill({ path: path.join(ROOT, 'dist', /(prymal-i18n-\w+\.json)$/.exec(r.request().url())[1]), contentType: 'application/json', headers: { 'access-control-allow-origin': '*' } }));
   await ctx.addInitScript(() => { try { localStorage.setItem('prymal_preview', '1'); } catch (e) {} });
   const g = await ctx.newPage();

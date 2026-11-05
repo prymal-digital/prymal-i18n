@@ -224,9 +224,16 @@
     document.querySelectorAll('.fe-block .sqs-html-content').forEach(function (c) {
       var b = c.closest('.fe-block');
       if (!b.offsetHeight || b.querySelector('.prymal-builder')) return;
+      // a single line of big type overhangs its box without being overflow
+      var slack = function () {
+        var e = c.querySelector('h1,h2,h3,h4,p');
+        if (!e) return 0;
+        var s = getComputedStyle(e), fs = parseFloat(s.fontSize), lh = parseFloat(s.lineHeight) || fs * 1.2;
+        return e.getBoundingClientRect().height <= lh * 1.4 && !e.nextElementSibling ? fs * 0.3 : 0;
+      };
       var over = function () {
         range.selectNodeContents(c);
-        return range.getBoundingClientRect().bottom - b.getBoundingClientRect().bottom;
+        return range.getBoundingClientRect().bottom - b.getBoundingClientRect().bottom - slack();
       };
       if (over() <= 3) return;
       var els = [].slice.call(c.querySelectorAll('h1,h2,h3,h4,p,li'));
