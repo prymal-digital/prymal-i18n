@@ -7,6 +7,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const BASE = 'https://www.prymal.world';
+const STRIP = /<script[^>]*prymal-i18n\/[a-z0-9]+\.js[^>]*><\/script>/g; // the script is live: tests add their own copy
 // Pages come from the live sitemap, so new pages are picked up automatically.
 const smFile = path.join(ROOT, 'sitemap_paths.json');
 try {
@@ -29,7 +30,7 @@ await ctx.route(/prymal-i18n-\w+\.json$/, r => r.fulfill({ path: path.join(ROOT,
 await ctx.route(u => u.origin === BASE, async route => {
   if (route.request().resourceType() !== 'document') return route.continue();
   const res = await route.fetch();
-  const body = (await res.text()).replace('</head>', () => snippet + '</head>');
+  const body = (await res.text()).replace(STRIP, '').replace('</head>', () => snippet + '</head>');
   await route.fulfill({ response: res, body });
 });
 const out = { single: {}, group: {} };

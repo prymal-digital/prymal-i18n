@@ -1,4 +1,15 @@
 {
- "single": {},
- "group": {}
+ "single": {
+  "Build Your": [
+   "/digital"
+  ],
+  "Monthly": [
+   "/digital"
+  ]
+ },
+ "group": {
+  "Build Your ¦ Monthly ¦ Social Media Plan": [
+   "/digital"
+  ]
+ }
 }

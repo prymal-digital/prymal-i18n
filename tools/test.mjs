@@ -5,6 +5,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const BASE = 'https://www.prymal.world';
+const STRIP = /<script[^>]*prymal-i18n\/[a-z0-9]+\.js[^>]*><\/script>/g; // the script is live: tests add their own copy
 const snippet = fs.readFileSync(path.join(ROOT, 'dist/header-injection.html'), 'utf8');
 const shots = path.join(ROOT, 'preview'); fs.mkdirSync(shots, { recursive: true });
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
@@ -18,7 +19,7 @@ async function context(opts = {}, inject = true) {
   await ctx.route(u => u.origin === BASE, async route => {
     if (route.request().resourceType() !== 'document') return route.continue();
     const res = await route.fetch();
-    await route.fulfill({ response: res, body: (await res.text()).replace('</head>', () => code + '</head>') });
+    await route.fulfill({ response: res, body: (await res.text()).replace(STRIP, '').replace('</head>', () => code + '</head>') });
   });
   return ctx;
 }

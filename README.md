@@ -16,13 +16,13 @@ Client-side EN/NL/FR/ES translation for prymal.world (Squarespace). No subscript
 - `dist/header-injection.html`: the live version.
 - `dist/prymal-i18n-*.json`: the dictionaries.
 
-## Install (once)
-1. In Settings > Developer Tools > Code Injection > Header, paste:
-   `<script defer src="https://prymal-digital.github.io/prymal-i18n/preview.js"></script>`
-2. Open `https://www.prymal.world/?i18n-preview=1` in your own browser. `?i18n-preview=0` turns it off. `?lang=nl` forces a language.
-3. To go live for everyone, change `preview.js` to `i18n.js` in that line.
+## Install
+Live since 2026-11-05. Settings > Developer Tools > Code Injection > Header holds:
+`<script defer src="https://prymal-digital.github.io/prymal-i18n/i18n.js"></script>`
 
+Remove that line to switch translation off. `preview.js` is the same script, active only after opening `?i18n-preview=1`.
 `defer` means the site never waits for GitHub: if GitHub is down, the site stays in English.
+Pushing to `main` changes the live site, usually within 10 minutes because of browser caching.
 
 ## When site copy changes
 Translations match the exact English text. A changed sentence shows in English until it is translated, never as an outdated translation.
