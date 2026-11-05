@@ -59,11 +59,10 @@
     if (n.nodeValue !== v) n.nodeValue = v;
     mine.set(n, v);
   }
-  // Legal pages stay English until the translations have had a legal review. Menu and footer still translate.
+  // Legal pages: Dutch is translated, French and Spanish stay English until reviewed. Menu and footer always translate.
   var LEGAL = /^\/(privacy-policy|terms-conditions)\/?$/.test(location.pathname);
   function excluded(el) {
     for (; el && el !== document.body; el = el.parentElement) {
-      if (LEGAL && el.nodeName === 'MAIN') return true;
       if (SKIP.test(el.nodeName.toUpperCase())) return true;
       if (el.getAttribute('translate') === 'no' || el.classList.contains('notranslate') || el.classList.contains('marquee-block')) return true; // ticker spacing is measured from its own text
     }
@@ -111,7 +110,7 @@
     var list = textsOf(b);
     list.forEach(track);
     if (!list.length) return;
-    if (lang === 'en') {
+    if (lang === 'en' || (LEGAL && lang !== 'nl' && b.closest('main'))) {
       list.forEach(function (n) { var o = orig.get(n); if (n.nodeValue !== o) n.nodeValue = o; mine.set(n, o); });
       return;
     }
