@@ -230,7 +230,18 @@
       }
     });
   }
-  function fitSoon() { clearTimeout(fitTimer); fitTimer = setTimeout(fit, 120); }
+  // Squarespace draws highlight underlines from measured text positions and only
+  // re-measures on resize, so ask it to redraw after the text changes.
+  var redrawing = false;
+  function redraw() {
+    redrawing = true;
+    window.dispatchEvent(new Event('resize'));
+    redrawing = false;
+  }
+  function fitSoon() {
+    clearTimeout(fitTimer);
+    fitTimer = setTimeout(function () { fit(); redraw(); }, 120);
+  }
   function setLang(next, persist) {
     return ensure(next).then(function () {
       lang = next;
@@ -241,6 +252,8 @@
       watch();
       pressed();
       fit();
+      redraw();
+      setTimeout(redraw, 700); // highlights can initialise after the first pass
     }).catch(function (e) {
       window.__i18nError = String(e); // stay on the current language, page keeps working
       if (lang !== 'en' && !touched) { lang = 'en'; root.lang = 'en-US'; }
@@ -325,7 +338,7 @@
     try {
       mount();
       pressed();
-      window.addEventListener('resize', fitSoon);
+      window.addEventListener('resize', function () { if (!redrawing) fitSoon(); });
       window.addEventListener('load', fitSoon);
       if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitSoon);
       document.addEventListener('click', function (e) {

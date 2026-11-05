@@ -188,6 +188,20 @@ for (const [loc, w] of [['fr-FR', 1025], ['fr-FR', 1100], ['fr-FR', 1200], ['es-
   if (w === 1025 && loc === 'fr-FR') await g.screenshot({ path: path.join(shots, 'narrow-fr.png') });
   await ctx.close();
 }
+// 14. Highlight underlines sit on their words after translation and after switching
+{
+  const ctx = await context({ locale: 'nl-BE' }); const g = await open(ctx, '/');
+  await g.waitForTimeout(1200);
+  const drift = () => g.evaluate(() => {
+    const spans = [...document.querySelectorAll('.sqsrte-text-highlight')].filter(e => e.offsetWidth).map(e => e.getBoundingClientRect());
+    const nodes = [...document.querySelectorAll('.TextShape-node')].filter(e => e.offsetWidth).map(e => e.getBoundingClientRect());
+    return { n: Math.min(spans.length, nodes.length), worst: Math.round(Math.max(0, ...spans.map((s, i) => nodes[i] ? Math.abs((s.left + s.width / 2) - (nodes[i].left + nodes[i].width / 2)) : 0))) };
+  });
+  const a = await drift(); ok('underlines aligned in NL', a.n >= 4 && a.worst <= 6, JSON.stringify(a));
+  await g.click('#prymal-lang .prymal-lang-btn'); await g.click('#prymal-lang button[data-lang="fr"]'); await g.waitForTimeout(1500);
+  const b2 = await drift(); ok('underlines aligned after switching to FR', b2.n >= 4 && b2.worst <= 6, JSON.stringify(b2));
+  await ctx.close();
+}
 // 11. /fridays in every language
 for (const [loc, want] of [['es-ES', 'Los viernes'], ['nl-BE', 'Vrijdagavonden'], ['fr-FR', 'Les vendredis soir']]) {
   const ctx = await context({ locale: loc }); const g = await open(ctx, '/fridays');
