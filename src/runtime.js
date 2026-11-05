@@ -59,8 +59,6 @@
     if (n.nodeValue !== v) n.nodeValue = v;
     mine.set(n, v);
   }
-  // Legal pages: Dutch is translated, French and Spanish stay English until reviewed. Menu and footer always translate.
-  var LEGAL = /^\/(privacy-policy|terms-conditions)\/?$/.test(location.pathname);
   function excluded(el) {
     for (; el && el !== document.body; el = el.parentElement) {
       if (SKIP.test(el.nodeName.toUpperCase())) return true;
@@ -110,7 +108,7 @@
     var list = textsOf(b);
     list.forEach(track);
     if (!list.length) return;
-    if (lang === 'en' || (LEGAL && lang !== 'nl' && b.closest('main'))) {
+    if (lang === 'en') {
       list.forEach(function (n) { var o = orig.get(n); if (n.nodeValue !== o) n.nodeValue = o; mine.set(n, o); });
       return;
     }

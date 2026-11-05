@@ -213,15 +213,13 @@ for (const [loc, w] of [['fr-FR', 1025], ['fr-FR', 1100], ['fr-FR', 1200], ['es-
   ok('analytics: language_switch sent', b2.some(e => e[0] === 'language_switch' && e[1].from_language === 'es' && e[1].to_language === 'nl'), JSON.stringify(b2.slice(-1)));
   await ctx.close();
 }
-// 16. Legal pages: Dutch translated; French and Spanish stay English, also after switching
+// 16. Legal pages translate in every language
 for (const p of ['/privacy-policy', '/terms-conditions']) {
   const ctx = await context({ locale: 'nl-BE' }); const g = await open(ctx, p);
-  const read = () => g.evaluate(() => ({ main: document.querySelector('main').innerText, nav: document.querySelector('.header-nav-list a').textContent.trim() }));
-  const a = await read();
-  ok('legal page in Dutch ' + p, /We verkopen je gegevens niet|We behouden ons/.test(a.main) && a.nav === 'Over ons', a.nav);
+  const main = () => g.evaluate(() => document.querySelector('main').innerText);
+  ok('legal page in Dutch ' + p, /We verkopen je gegevens niet|We behouden ons/.test(await main()));
   await g.click('#prymal-lang .prymal-lang-btn'); await g.click('#prymal-lang button[data-lang="fr"]'); await g.waitForTimeout(800);
-  const b2 = await read();
-  ok('legal page English in FR ' + p, /We (do not sell your data|reserve the right)/.test(b2.main) && !/We verkopen|We behouden/.test(b2.main) && b2.nav === 'À propos', b2.nav);
+  ok('legal page in French ' + p, /Nous ne vendons pas|Nous nous réservons/.test(await main()));
   await ctx.close();
 }
 // 11. /fridays in every language

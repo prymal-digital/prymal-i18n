@@ -35,7 +35,6 @@ Translations match the exact English text. A changed sentence shows in English u
 `/journal` and `/record-store-design` are skipped on purpose (`SKIP_PAGES` in `tools/collect.mjs`).
 
 ## Known limits
-- `/privacy-policy` and `/terms-conditions` are translated in Dutch only. French and Spanish stay English until reviewed: see `LEGAL` in `src/runtime.js`.
 - No SEO value: search engines see English only. No hreflang, no translated URLs or metadata.
 - Squarespace checkout runs outside this script and stays in Squarespace's language.
 - Social captions and text inside images or videos stay in English.
