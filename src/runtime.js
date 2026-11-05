@@ -17,15 +17,16 @@
   function store(v) {
     try { if (v) localStorage.setItem(KEY, v); return localStorage.getItem(KEY); } catch (e) { return null; }
   }
+  var source = 'default';
   function detect() {
     var q = /[?&]lang=(en|nl|fr|es)\b/.exec(location.search);
-    if (q) { store(q[1]); return q[1]; }
+    if (q) { store(q[1]); source = 'url'; return q[1]; }
     var s = store();
-    if (LANGS.indexOf(s) > -1) return s;
+    if (LANGS.indexOf(s) > -1) { source = 'choice'; return s; }
     var list = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language || 'en'];
     for (var i = 0; i < list.length; i++) {
       var p = String(list[i]).toLowerCase().split('-')[0];
-      if (LANGS.indexOf(p) > -1) return p; // first supported wins, so en-GB,nl stays English
+      if (LANGS.indexOf(p) > -1) { source = 'browser'; return p; } // first supported wins, so en-GB,nl stays English
     }
     return 'en';
   }
@@ -196,6 +197,13 @@
     }
     return pending[l];
   }
+  // Reports to the site's own Google Analytics. Sends nothing if GA never loads,
+  // and goes through gtag, so the site's cookie and consent handling still applies.
+  function gaEvent(name, params, tries) {
+    tries = tries || 0;
+    if (typeof window.gtag === 'function') { window.gtag('event', name, params); return; }
+    if (tries < 20) setTimeout(function () { gaEvent(name, params, tries + 1); }, 500);
+  }
   function pressed() {
     document.querySelectorAll('.prymal-lang-menu button').forEach(function (b) {
       b.setAttribute('aria-pressed', String(b.dataset.lang === lang));
@@ -244,6 +252,7 @@
   }
   function setLang(next, persist) {
     return ensure(next).then(function () {
+      if (persist && next !== lang) gaEvent('language_switch', { from_language: lang, to_language: next });
       lang = next;
       if (persist) store(next);
       root.lang = next === 'en' ? 'en-US' : next;
@@ -345,7 +354,9 @@
         if (!e.target.closest || !e.target.closest('.prymal-lang')) closeAll();
       });
       obs = new MutationObserver(onMut);
-      setLang(lang, false).then(done, done);
+      setLang(lang, false).then(done, done).then(function () {
+        gaEvent('language_view', { site_language: lang, language_source: source, browser_language: String(navigator.language || '').toLowerCase() });
+      });
     } catch (e) {
       window.__i18nError = String(e); // the English page stays usable if translation fails
       done();

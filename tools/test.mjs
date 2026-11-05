@@ -202,6 +202,17 @@ for (const [loc, w] of [['fr-FR', 1025], ['fr-FR', 1100], ['fr-FR', 1200], ['es-
   const b2 = await drift(); ok('underlines aligned after switching to FR', b2.n >= 4 && b2.worst <= 6, JSON.stringify(b2));
   await ctx.close();
 }
+// 15. Language reporting reaches the site's analytics queue
+{
+  const ctx = await context({ locale: 'es-ES' }); const g = await open(ctx, '/');
+  const evs = () => g.evaluate(() => (window.dataLayer || []).filter(a => a && a[0] === 'event' && /^language_/.test(a[1])).map(a => [a[1], a[2]]));
+  const a = await evs();
+  ok('analytics: language_view sent once', a.length === 1 && a[0][1].site_language === 'es' && a[0][1].language_source === 'browser', JSON.stringify(a));
+  await g.click('#prymal-lang .prymal-lang-btn'); await g.click('#prymal-lang button[data-lang="nl"]'); await g.waitForTimeout(600);
+  const b2 = await evs();
+  ok('analytics: language_switch sent', b2.some(e => e[0] === 'language_switch' && e[1].from_language === 'es' && e[1].to_language === 'nl'), JSON.stringify(b2.slice(-1)));
+  await ctx.close();
+}
 // 11. /fridays in every language
 for (const [loc, want] of [['es-ES', 'Los viernes'], ['nl-BE', 'Vrijdagavonden'], ['fr-FR', 'Les vendredis soir']]) {
   const ctx = await context({ locale: loc }); const g = await open(ctx, '/fridays');
