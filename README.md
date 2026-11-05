@@ -24,11 +24,11 @@ Client-side EN/NL/FR/ES translation for prymal.world (Squarespace). No subscript
 ## When site copy changes
 Translations match the exact English text. A changed sentence shows in English until it is translated, never as an outdated translation.
 
-1. Every Monday `.github/workflows/check.yml` crawls the sitemap pages and commits every untranslated string to `collected.json`.
-2. A scheduled Claude job adds the missing rows to `translations/master-core.psv` and pushes.
-3. `.github/workflows/pages.yml` publishes the new dictionaries. Squarespace needs no change.
+1. Every Monday `.github/workflows/check.yml` crawls the sitemap pages for free on GitHub and commits untranslated strings to `collected.json`.
+2. If anything is missing, `tools/notify.py` opens one GitHub issue, which emails the owner. No Claude tokens are used so far.
+3. Ask Claude to update the translations: add rows to `translations/master-core.psv`, run `npm run build` and `npm test`, push.
+4. `.github/workflows/pages.yml` publishes the new dictionaries. Squarespace needs no change.
 
-To run it by hand: `npm run collect`, add rows, `npm run build`, `npm test`, push.
 `/journal` and `/record-store-design` are skipped on purpose (`SKIP_PAGES` in `tools/collect.mjs`).
 
 ## Known limits

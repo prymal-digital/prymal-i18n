@@ -3,8 +3,14 @@ on:
   schedule:
     - cron: '0 5 * * 1'
   workflow_dispatch:
+    inputs:
+      test_notice:
+        description: Open a test issue to check the email notice
+        type: boolean
+        default: false
 permissions:
   contents: write
+  issues: write
 jobs:
   check:
     runs-on: ubuntu-latest
@@ -30,3 +36,8 @@ jobs:
           git add collected.json sitemap_paths.json
           git diff --cached --quiet || git commit -m "Weekly copy check"
           git push
+      - name: Open an issue only when text needs translating
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TEST_NOTICE: ${{ inputs.test_notice }}
+        run: python3 tools/notify.py
