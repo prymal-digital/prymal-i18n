@@ -20,6 +20,11 @@ const measure = () => {
     return { top: t.top + scrollY, bottom: t.bottom + scrollY, left: t.left, right: t.right, blockBottom: b.getBoundingClientRect().bottom + scrollY, id: (b.className.match(/fe-block-[\w-]+/) || [b.id])[0], text: b.innerText.trim().replace(/\s+/g, ' ').slice(0, 60) };
   };
   const bs = blocks.map(box), out = {};
+  blocks.forEach(b => b.querySelectorAll('h1,h2,h3').forEach((h, i) => {
+    const s = getComputedStyle(h), fs = parseFloat(s.fontSize); if (fs < 30) return;
+    const lh = parseFloat(s.lineHeight) || fs * 1.2, r = document.createRange(); r.selectNodeContents(h);
+    out['wrap:' + (b.className.match(/fe-block-[\w-]+/) || [b.id])[0] + ':' + i] = { px: Math.round(r.getBoundingClientRect().height / lh), text: Math.round(fs) + 'px: ' + h.innerText.trim().replace(/\s+/g, ' ').slice(0, 60) };
+  }));
   for (let i = 0; i < bs.length; i++) {
     const a = bs[i];
     if (a.bottom - a.blockBottom > 4) out['over:' + a.id] = { px: Math.round(a.bottom - a.blockBottom), text: a.text };
@@ -52,7 +57,7 @@ async function pageRun(w, p) {
       const now = await g.evaluate(measure);
       for (const [k, v] of Object.entries(now)) {
         const base = en[k];
-        if (!base || v.px > base.px + 4) findings.push({ page: p, width: w, lang: l, kind: k.split(':')[0], px: v.px, text: v.text });
+        if (k.startsWith('wrap:') ? (base && v.px > base.px) : (!base || v.px > base.px + 4)) findings.push({ page: p, width: w, lang: l, kind: k.split(':')[0], px: v.px, text: v.text });
       }
     }
   } catch (e) { findings.push({ page: p, width: w, lang: '-', kind: 'error', px: 0, text: e.message.slice(0, 80) }); }
@@ -66,4 +71,4 @@ fs.writeFileSync(path.join(ROOT, 'layout-findings.json'), JSON.stringify(finding
 console.log('findings', findings.length, 'errors', findings.filter(f => f.kind === 'error').length);
 const by = {}; for (const f of findings) { const k = f.page + ' ' + f.width; by[k] = (by[k] || 0) + 1; }
 console.log(by);
-for (const f of findings.slice(0, 45)) console.log(f.page, f.width, f.lang, f.kind, f.px + 'px', f.text.slice(0, 95));
+for (const f of findings.slice(0, 70)) console.log(f.page, f.width, f.lang, f.kind, f.px + 'px', f.text.slice(0, 95));

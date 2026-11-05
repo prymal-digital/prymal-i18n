@@ -61,7 +61,7 @@
   function excluded(el) {
     for (; el && el !== document.body; el = el.parentElement) {
       if (SKIP.test(el.nodeName.toUpperCase())) return true;
-      if (el.getAttribute('translate') === 'no' || el.classList.contains('notranslate')) return true;
+      if (el.getAttribute('translate') === 'no' || el.classList.contains('notranslate') || el.classList.contains('marquee-block')) return true; // ticker spacing is measured from its own text
     }
     return false;
   }

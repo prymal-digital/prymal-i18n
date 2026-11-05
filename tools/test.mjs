@@ -138,9 +138,10 @@ for (const l of ['en', 'nl', 'fr', 'es']) {
   ok('mobile: dropdown switches language', (await state(page)).lang === 'fr'); await ctx.close();
 }
 // 8. Performance: median of 3 cold loads
+const TAG = '<script defer src="https://prymal-digital.github.io/prymal-i18n/i18n.js"></script>';
 const load = async (inject, loc) => { const c = await context({ locale: loc }, inject); const pg = await c.newPage(); await pg.goto(BASE + '/digital', { waitUntil: 'load', timeout: 60000 }); const v = await pg.evaluate(() => Math.round(performance.getEntriesByType('navigation')[0].domContentLoadedEventEnd)); await c.close(); return v; };
 const A = [], B = [], C = [];
-for (let i = 0; i < 9; i++) { A.push(await load(false, 'en-GB')); B.push(await load(true, 'en-GB')); C.push(await load(true, 'nl-BE')); } // interleaved so network drift hits all three
+for (let i = 0; i < 9; i++) { A.push(await load(false, 'en-GB')); B.push(await load(TAG, 'en-GB')); C.push(await load(TAG, 'nl-BE')); } // interleaved so network drift hits all three
 const med = a => [...a].sort((x, y) => x - y)[4];
 ok('perf: English under 100ms slower than baseline', med(B) - med(A) < 100, `baseline ${med(A)}ms, EN ${med(B)}ms, NL ${med(C)}ms`);
 // 9. Preview build: inert for visitors, active only after opting in
