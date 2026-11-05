@@ -35,6 +35,7 @@ jobs:
           git config user.email "prymal-i18n-bot@users.noreply.github.com"
           git add collected.json sitemap_paths.json
           git diff --cached --quiet || git commit -m "Weekly copy check"
+          git pull --rebase origin main
           git push
       - name: Open an issue only when text needs translating
         env:
