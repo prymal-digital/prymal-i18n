@@ -1,0 +1,32 @@
+name: Weekly copy check
+on:
+  schedule:
+    - cron: '0 5 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: python3 tools/build.py
+      - name: Crawl the live site for untranslated text
+        run: |
+          set +e
+          node tools/collect.mjs
+          code=$?
+          set -e
+          if [ "$code" -gt 1 ]; then exit "$code"; fi
+      - name: Save the result
+        run: |
+          git config user.name "prymal-i18n-bot"
+          git config user.email "prymal-i18n-bot@users.noreply.github.com"
+          git add collected.json sitemap_paths.json
+          git diff --cached --quiet || git commit -m "Weekly copy check"
+          git push

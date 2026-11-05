@@ -1,0 +1,87 @@
+# Never translated: brand, product, people, addresses, tools. Do not add sentences here.
+PRYMAL
+PRYMAL.WORLD
+PRYMAL Digital
+PRYMAL WORLD (OPTIBIZ BV)
+WILDFLOW
+WildFlow
+Wildflow
+OPTIBIZ BV
+OGA
+Online Growth Accelerator
+Beta
+Pro
+Starter
+Awake Insights
+Record Store Design
+Lose Control
+Lose Control Party
+Dear Vinyl
+DearVinyl.com
+VinylScan
+Vinylscan
+Kranig Kraanwerk
+Henk Schepens
+- Henk Schepens
+Alain De Bruyn
+Dieter Pillen
+Valentino
+Cindy Espinola
+Inci Alkurt
+Jazmin Gattyan
+John Mark Sarol
+Rohit Kumar
+Oscar - Nomad
+AI - Claudia
+HNKS
+DJ
+Barcelona
+English
+Español
+Facebook
+FACEBOOK
+Instagram
+INSTAGRAM
+LinkedIn
+Pinterest
+TikTok
+Shopify
+Squarespace
+Sanity
+Vercel
+Claude Code
+Google Ads
+Google Analytics
+Search Console
+Meta Pixel
+Hotjar
+in
+BE0817163236
+2600 Antwerp, BE
+2600 Antwerp, Belgium
+Deken De Winterstraat 8 bus 5
+Deken de Winterstraat 8
+# Draft placeholders live on /podcast: fix on the site, do not translate
+CTA:
+YouTube embed
+Subscribe links (YouTube, Spotify, Apple)
+Optional: “Want to launch your own?” → /media/podcast-support
+# Added with core pages
+BIGG Fit.
+Social Media Growth
+Social Media Premium
+Social Media Starter
+Digital Services Store
+WildFlow VIII
+Dear
+Vinyl
+Shopify Store
+Shopify + Discogs sync
+Shopify + POS
+Shopify + sync + POS
+Newsletter Block
+⭐️⭐️⭐️⭐️⭐️ — Alain Debruyn -
+# Editor-only Squarespace warning, not shown to visitors
+This newsletter signup form needs a storage option. Edit the block and enter a storage location via the
+Storage
+tab.

@@ -1,0 +1,22 @@
+[
+ {"id": "credits", "re": "^(\\d+(?:\\.\\d+)?) credits$"},
+ {"id": "mix", "re": "^(\\d+) posts per month · (\\d+) reels per month · Up to (\\d+) channels$"},
+ {"id": "capacity", "re": "^(\\d+(?:\\.\\d+)?) of (\\d+) monthly credits selected · (\\d+(?:\\.\\d+)?) remaining$"},
+ {"id": "setup", "re": "^One-time brand setup: (€[\\d.,]+)$"},
+ {"id": "minimum", "re": "^Initial 3-month payment: (€[\\d.,]+) \\(including setup, excl\\. VAT\\)\\.$"},
+ {"id": "viewplan", "re": "^View (Starter|Growth|Premium) plan →$"},
+ {"id": "status", "re": "^(\\d+(?:\\.\\d+)?) monthly credits, (\\d+) posts, (\\d+) channels\\. (.+)$"},
+ {"id": "statusplan", "re": "^(Starter|Growth|Premium) plan, (€[\\d.,]+) per month\\.$"},
+ {"id": "viewpost", "re": "^View (PRYMAL Digital|PRYMAL|WILDFLOW|Record Store Design) post: (.+)$"},
+ {"id": "results", "re": "^(\\d+) Results?$"},
+ {"id": "from", "re": "^from (€[\\d.,]+)$"},
+ {"id": "image", "re": "^Image (\\d+) of (\\d+)$"},
+ {"id": "item", "re": "^Item (\\d+) of (\\d+)$"},
+ {"id": "slide", "re": "^Slide (\\d+)$"},
+ {"id": "cartType", "re": "^Type: (.+)$"},
+ {"id": "cartQty", "re": "^Quantity, (.+)$"},
+ {"id": "cartRemove", "re": "^Remove (.+)$"},
+ {"id": "cartVariant", "re": "^Type variant for (.+)$"},
+ {"id": "cartImage", "re": "^(.+) image$"},
+ {"id": "cartTotal", "re": "^(€[\\d.,]+), total price for (.+)$"}
+]

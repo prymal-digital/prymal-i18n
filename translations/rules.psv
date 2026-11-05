@@ -1,0 +1,21 @@
+# rule id | NL | FR | ES   ($1 $2 … = captured values)
+credits | $1 credits | $1 crédits | $1 créditos
+mix | $1 posts per maand · $2 reels per maand · Tot $3 kanalen | $1 publications par mois · $2 reels par mois · Jusqu’à $3 réseaux | $1 publicaciones al mes · $2 reels al mes · Hasta $3 canales
+capacity | $1 van $2 maandelijkse credits gekozen · $3 over | $1 sur $2 crédits mensuels sélectionnés · $3 restants | $1 de $2 créditos mensuales seleccionados · $3 restantes
+setup | Eenmalige merkopstart: $1 | Configuration de marque unique : $1 | Configuración de marca única: $1
+minimum | Eerste betaling voor 3 maanden: $1 (inclusief opstart, excl. btw). | Premier paiement de 3 mois : $1 (configuration incluse, hors TVA). | Primer pago de 3 meses: $1 (configuración incluida, sin IVA).
+viewplan | Bekijk plan $1 → | Voir le plan $1 → | Ver plan $1 →
+status | $1 maandelijkse credits, $2 posts, $3 kanalen. $4 | $1 crédits mensuels, $2 publications, $3 réseaux. $4 | $1 créditos mensuales, $2 publicaciones, $3 canales. $4
+statusplan | Plan $1, $2 per maand. | Plan $1, $2 par mois. | Plan $1, $2 al mes.
+viewpost | Bekijk post van $1: $2 | Voir la publication $1 : $2 | Ver publicación de $1: $2
+results | $1 resultaten | $1 résultats | $1 resultados
+from | vanaf $1 | à partir de $1 | desde $1
+image | Afbeelding $1 van $2 | Image $1 sur $2 | Imagen $1 de $2
+item | Item $1 van $2 | Élément $1 sur $2 | Elemento $1 de $2
+slide | Slide $1 | Diapositive $1 | Diapositiva $1
+cartType | Type: $1 | Type : $1 | Tipo: $1
+cartQty | Aantal, $1 | Quantité, $1 | Cantidad, $1
+cartRemove | $1 verwijderen | Retirer $1 | Quitar $1
+cartVariant | Type voor $1 | Type pour $1 | Tipo de $1
+cartImage | Afbeelding van $1 | Image de $1 | Imagen de $1
+cartTotal | $1, totaalprijs voor $2 | $1, prix total pour $2 | $1, precio total de $2

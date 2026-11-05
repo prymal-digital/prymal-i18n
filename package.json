@@ -1,0 +1,11 @@
+{
+  "name": "prymal-i18n",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "python3 tools/build.py",
+    "collect": "node tools/collect.mjs",
+    "test": "node tools/test.mjs"
+  },
+  "dependencies": { "playwright-core": "1.48.2" }
+}

@@ -1,0 +1,19 @@
+html.i18n-wait body{opacity:0}
+#multilingual-language-picker-desktop,#multilingual-language-picker-mobile,.language-picker-mobile{display:none!important}
+.prymal-lang{position:relative;display:inline-flex;align-items:center;margin:0 14px 0 18px;line-height:1}
+#prymal-lang-m{display:flex;justify-content:center;margin:16px 0;color:#fff}
+.prymal-lang button{all:unset;cursor:pointer;box-sizing:border-box}
+.prymal-lang .prymal-lang-btn{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:8px 6px;color:inherit;border-radius:3px}
+.prymal-lang .prymal-lang-btn::after{content:"";display:inline-block;width:6px;height:6px;margin-top:-3px;border-right:1.5px solid;border-bottom:1.5px solid;transform:rotate(45deg);transition:transform .15s}
+.prymal-lang .prymal-lang-btn[aria-expanded=true]::after{margin-top:3px;transform:rotate(-135deg)}
+.prymal-lang-menu{position:absolute;top:calc(100% + 6px);right:0;z-index:99999;display:flex;flex-direction:column;min-width:140px;padding:6px;background:#fff;color:#111;border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.25)}
+.prymal-lang-menu[hidden]{display:none}
+.prymal-lang-menu button{padding:10px 12px;font-size:16px;color:#111;border-radius:5px;white-space:nowrap}
+.prymal-lang-menu button:hover{background:#f2f2f2}
+.prymal-lang-menu button[aria-pressed=true]{background:#ffc600}
+.prymal-lang button:focus-visible{outline:2px solid #ffc600;outline-offset:1px}
+.prymal-lang-menu button:focus-visible{outline-color:#111}
+#prymal-lang-m .prymal-lang-menu{top:auto;bottom:calc(100% + 6px);right:auto;left:50%;transform:translateX(-50%)}
+@media (max-width:1024px){#prymal-lang-m .prymal-lang-btn{min-width:64px;min-height:44px;justify-content:center;font-size:16px}#prymal-lang-m .prymal-lang-menu button{min-height:44px;font-size:16px;padding:14px 16px}}
+@media (min-width:1025px) and (max-width:1240px){.header-nav-list{flex-wrap:nowrap!important}.header-nav-item{white-space:nowrap;margin-left:1vw!important}.header-display-desktop .prymal-lang{margin:0 6px 0 12px}.header-display-desktop .prymal-lang-cur{display:none}}
+@media (min-width:1025px) and (max-width:1100px){.header-nav-item{margin-left:.6vw!important}.header-nav-item a,.header-nav-item .header-nav-folder-title{font-size:.92em!important}}
