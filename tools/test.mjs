@@ -213,6 +213,13 @@ for (const [loc, w] of [['fr-FR', 1025], ['fr-FR', 1100], ['fr-FR', 1200], ['es-
   ok('analytics: language_switch sent', b2.some(e => e[0] === 'language_switch' && e[1].from_language === 'es' && e[1].to_language === 'nl'), JSON.stringify(b2.slice(-1)));
   await ctx.close();
 }
+// 16. Legal pages keep their English content, the menu around them still translates
+for (const p of ['/privacy-policy', '/terms-conditions']) {
+  const ctx = await context({ locale: 'nl-BE' }); const g = await open(ctx, p);
+  const s = await g.evaluate(() => ({ main: document.querySelector('main').innerText, nav: document.querySelector('.header-nav-list a').textContent.trim() }));
+  ok('legal page stays English ' + p, /We (do not sell your data|reserve the right)/.test(s.main) && !/We verkopen|behouden ons/.test(s.main) && s.nav === 'Over ons', s.nav);
+  await ctx.close();
+}
 // 11. /fridays in every language
 for (const [loc, want] of [['es-ES', 'Los viernes'], ['nl-BE', 'Vrijdagavonden'], ['fr-FR', 'Les vendredis soir']]) {
   const ctx = await context({ locale: loc }); const g = await open(ctx, '/fridays');

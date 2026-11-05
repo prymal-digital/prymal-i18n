@@ -18,7 +18,7 @@ const PAGES = [...new Set([...JSON.parse(fs.readFileSync(smFile, 'utf8')), '/', 
 const snippet = fs.readFileSync(path.join(ROOT, 'dist/header-injection.html'), 'utf8');
 // Not translated on purpose: social captions, handles, file names, people and product names.
 // Left in English on purpose: English-market SEO content.
-const SKIP_PAGES = /^\/(journal|record-store-design)/;
+const SKIP_PAGES = /^\/(journal|record-store-design|privacy-policy|terms-conditions)/;
 const IGNORE = [/#\w+/, /@\w+/, /\.(png|jpe?g|webp)$/i, /⁠/, /^(https?:|www\.)/, /^[\d\s€.,:/+-]+$/];
 const browser = await chromium.launch({ channel: 'chrome', headless: true });
 const ctx = await browser.newContext({ locale: 'nl-BE', viewport: { width: 1440, height: 900 } });
