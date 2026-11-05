@@ -49,3 +49,7 @@ canary = ("(function(){try{if(/[?&]i18n-preview=1/.test(location.search))localSt
           "var s=document.createElement('style');s.textContent=" + json.dumps(css) + ";document.head.appendChild(s);\n"
           + js + "\n})();")
 (ROOT / "dist/header-injection-preview.html").write_text("<!-- PRYMAL i18n PREVIEW: invisible to visitors -->\n<script>" + canary + "</script>\n")
+
+# Hosted copies, so Squarespace only ever needs a one-line <script defer src=...> tag.
+(ROOT / "dist/preview.js").write_text(canary, encoding="utf8")
+(ROOT / "dist/i18n.js").write_text((ROOT / "dist/bundle.js").read_text(encoding="utf8"), encoding="utf8")
