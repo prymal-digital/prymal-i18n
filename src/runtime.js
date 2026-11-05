@@ -205,6 +205,32 @@
       b.setAttribute('aria-label', 'Language: ' + LABEL[lang]);
     });
   }
+  // Squarespace sizes grid blocks for the English text. Translations can run longer,
+  // so shrink a block's text just enough to stay inside it (never below 72%).
+  var fitted = [], fitTimer = 0;
+  function fit() {
+    fitted.forEach(function (e) { e.style.fontSize = ''; });
+    fitted = [];
+    if (lang === 'en') return;
+    var range = document.createRange();
+    document.querySelectorAll('.fe-block .sqs-html-content').forEach(function (c) {
+      var b = c.closest('.fe-block');
+      if (!b.offsetHeight || b.querySelector('.prymal-builder')) return;
+      var over = function () {
+        range.selectNodeContents(c);
+        return range.getBoundingClientRect().bottom - b.getBoundingClientRect().bottom;
+      };
+      if (over() <= 3) return;
+      var els = [].slice.call(c.querySelectorAll('h1,h2,h3,h4,p,li'));
+      var base = els.map(function (e) { return parseFloat(getComputedStyle(e).fontSize); });
+      fitted = fitted.concat(els);
+      for (var s = 0.96; s >= 0.72; s -= 0.04) {
+        for (var i = 0; i < els.length; i++) els[i].style.fontSize = (base[i] * s) + 'px';
+        if (over() <= 3) break;
+      }
+    });
+  }
+  function fitSoon() { clearTimeout(fitTimer); fitTimer = setTimeout(fit, 120); }
   function setLang(next, persist) {
     return ensure(next).then(function () {
       lang = next;
@@ -214,6 +240,7 @@
       apply(document.body);
       watch();
       pressed();
+      fit();
     }).catch(function (e) {
       window.__i18nError = String(e); // stay on the current language, page keeps working
       if (lang !== 'en' && !touched) { lang = 'en'; root.lang = 'en-US'; }
@@ -298,6 +325,9 @@
     try {
       mount();
       pressed();
+      window.addEventListener('resize', fitSoon);
+      window.addEventListener('load', fitSoon);
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitSoon);
       document.addEventListener('click', function (e) {
         if (!e.target.closest || !e.target.closest('.prymal-lang')) closeAll();
       });
