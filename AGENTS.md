@@ -43,6 +43,7 @@ It deliberately does not translate: Henk does not want AI tokens spent when noth
 - `/journal` and `/record-store-design` stay English on purpose. The homepage ticker stays English: translating it breaks its spacing.
 
 ## Squarespace traps (all found the hard way)
+- Line breaks or formatting changes in English split the text differently, so they count as new text even if the words are the same. Keep the break in the same place in every language.
 - Grid blocks have a fixed height for the English text. Longer text collides with the next block: prefer shorter copy, `fit()` is only a safety net.
 - Some headings scale to fill their width, so shorter text gets bigger. Keep a similar length to the English.
 - Highlight underlines are separate shapes positioned on resize. `redraw()` handles them.
