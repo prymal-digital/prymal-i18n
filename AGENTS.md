@@ -50,6 +50,8 @@ It deliberately does not translate: Henk does not want AI tokens spent when noth
 - Dropdown labels are safe to translate: options keep their own `value`.
 - Squarespace checkout, images and video are not translatable. Google only sees English: no multilingual SEO.
 
+- The Our Work cards on `/digital` are equal height through Squarespace Custom CSS (selector `#collection-68fc89d4e978c81e45143c8f`). The longest card sets the height for all, so keep card texts a similar length.
+
 ## Access needed
 - GitHub: push access to `prymal-digital/prymal-i18n` (public repository, so never commit secrets).
 - Squarespace and Google Analytics: Henk's own logins. GA property `G-KPLG33T4MQ`; custom dimension `site_language` is still to be created by Henk.
