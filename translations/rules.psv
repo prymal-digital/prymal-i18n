@@ -7,6 +7,7 @@ minimum | Eerste betaling voor 3 maanden: $1 (inclusief setup, excl. btw). | Pre
 viewplan | Bekijk plan $1 → | Voir le plan $1 → | Ver plan $1 →
 status | $1 maandelijkse credits, $2 posts, $3 kanalen. $4 | $1 crédits mensuels, $2 publications, $3 réseaux. $4 | $1 créditos mensuales, $2 publicaciones, $3 canales. $4
 statusplan | Plan $1, $2 per maand. | Plan $1, $2 par mois. | Plan $1, $2 al mes.
+planprice | $1 · $$2/maand | $1 · $2 $/mois | $1 · $2 $/mes
 viewpost | Bekijk post van $1: $2 | Voir la publication $1 : $2 | Ver publicación de $1: $2
 results | $1 resultaten | $1 résultats | $1 resultados
 from | vanaf $1 | à partir de $1 | desde $1
