@@ -15,7 +15,7 @@ try {
   const found = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m => m[1].replace(BASE, '') || '/');
   if (found.length) fs.writeFileSync(smFile, JSON.stringify(found, null, 0));
 } catch (e) { console.error('sitemap unavailable, using last known list'); }
-const PAGES = [...new Set([...JSON.parse(fs.readFileSync(smFile, 'utf8')), '/', '/podcast'])].concat('/cart');
+const PAGES = [...new Set([...JSON.parse(fs.readFileSync(smFile, 'utf8')), '/', '/podcast', '/digital-services-terms'])].concat('/cart');
 const snippet = fs.readFileSync(path.join(ROOT, 'dist/header-injection.html'), 'utf8');
 // Not translated on purpose: social captions, handles, file names, people and product names.
 // Left in English on purpose: English-market SEO content.

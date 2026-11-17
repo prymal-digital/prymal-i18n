@@ -92,3 +92,5 @@ MijnMedischMateriaal
 PRYMAL World
 PetComfort
 Petcomfort
+Inci Xsense
+Mellow-K

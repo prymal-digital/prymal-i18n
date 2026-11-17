@@ -7,7 +7,7 @@ import { fileURLToPath } from 'url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const BASE = 'https://www.prymal.world';
 const SKIP = /^\/(journal|record-store-design)/;
-const pages = [...new Set(JSON.parse(fs.readFileSync(path.join(ROOT, 'sitemap_paths.json'), 'utf8')).filter(p => !SKIP.test(p)))];
+const pages = [...new Set([...JSON.parse(fs.readFileSync(path.join(ROOT, 'sitemap_paths.json'), 'utf8')), '/digital-services-terms'].filter(p => !SKIP.test(p)))];
 const WIDTHS = [1440, 1024, 375];
 const LOCAL = process.env.LOCAL_BUNDLE ? fs.readFileSync(path.join(ROOT, 'dist/i18n.js'), 'utf8') : null;
 
